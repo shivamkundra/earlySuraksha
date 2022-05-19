@@ -187,7 +187,7 @@ router.post("/setLocation", fetchuser, async (req, res) => {
         }
 
         res.send({
-          user,
+          message: "location set",
         });
       })
       .catch((error) => {
