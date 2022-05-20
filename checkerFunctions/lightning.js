@@ -62,6 +62,7 @@ const checkLightning = async () => {
 };
 
 const fetchPostCode = async (response) => {
+  let cnt = 0;
   postCodes = [];
   console.log(response);
 
@@ -77,9 +78,11 @@ const fetchPostCode = async (response) => {
       )
       .then(async (response) => {
         const data = response.data.results[0].components.postcode;
+
         if (!postCodes.includes(data) && data !== undefined) {
           postCodes.push(data);
-          console.log(postCodes);
+          console.log(postCodes[cnt]);
+          cnt++;
         }
       })
       .catch((error) => {

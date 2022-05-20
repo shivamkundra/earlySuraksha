@@ -40,6 +40,7 @@ router.post(
         name: req.body.name,
         password: secPass,
         email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
         // domain: req.body.domain,
         // year: req.body.year,
       });
@@ -159,6 +160,8 @@ router.post("/setLocation", fetchuser, async (req, res) => {
     const userid = req.id;
     console.log(userid);
     const user = await User.findById(userid).select("-password");
+
+    console.log(req.body.loc.lat, req.body.loc.lat);
 
     axios
       .get(
