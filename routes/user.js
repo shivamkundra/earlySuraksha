@@ -161,11 +161,11 @@ router.post("/setLocation", fetchuser, async (req, res) => {
     console.log(userid);
     const user = await User.findById(userid).select("-password");
 
-    console.log(req.body.loc.lat, req.body.loc.lat);
+    console.log(req.body.lat, req.body.lat);
 
     axios
       .get(
-        `https://api.opencagedata.com/geocode/v1/json?q=${req.body.loc.lat}+${req.body.loc.long}&key=713c94f1ac8d447ca086c5ce103fbe81&pretty=1`,
+        `https://api.opencagedata.com/geocode/v1/json?q=${req.body.lat}+${req.body.long}&key=713c94f1ac8d447ca086c5ce103fbe81&pretty=1`,
         {
           headers: {
             "Content-Type": "application/json",
