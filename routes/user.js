@@ -160,17 +160,8 @@ router.post("/setLocation", fetchuser, async (req, res) => {
     const userid = req.id;
     console.log(userid);
     const user = await User.findById(userid).select("-password");
-
-    console.log(
-      "---",
-      req.body.lat,
-      "---",
-      req.body.long,
-      "---",
-      req,
-      body.token,
-      "---"
-    );
+    const token = req.header("auth-token");
+    console.log(`---${req.body.lat}---${req.body.long}---${token}---`);
 
     axios
       .get(
