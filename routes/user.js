@@ -168,7 +168,7 @@ router.post("/setLocation", fetchuser, async (req, res) => {
       req.body.long,
       "---",
       req,
-      body.auth - token,
+      body.token,
       "---"
     );
 
