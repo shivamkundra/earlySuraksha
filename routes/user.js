@@ -45,30 +45,6 @@ router.post(
         // year: req.body.year,
       });
 
-      // let androidInfo = await Android.find({});
-
-      // if (!androidInfo) {
-      //   androidInfo = new Android({});
-      // }
-
-      // if (user.year == 1) {
-      //   let newArray = androidInfo.firstYear;
-      //   newArray.push(user);
-      //   await Android.updateOne({}, { $set: { firstYear: newArray } });
-      // } else if (user.year == 2) {
-      //   let newArray = androidInfo.secondYear;
-      //   newArray.push(user);
-      //   await Android.updateOne({}, { $set: { secondYear: newArray } });
-      // } else if (user.year == 3) {
-      //   let newArray = androidInfo.thirdYear;
-      //   newArray.push(user);
-      //   await Android.updateOne({}, { $set: { thirdYear: newArray } });
-      // } else if (user.year == 4) {
-      //   let newArray = androidInfo.fourthYear;
-      //   newArray.push(user);
-      //   await Android.updateOne({}, { $set: { fourthYear: newArray } });
-      // }
-
       const data = {
         id: user.id,
       };

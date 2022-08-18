@@ -29,7 +29,7 @@ app.use("/api/", require("./routes/index"));
 app.get("/", (req, res) => {
   res.send("hello");
 });
-// setInterval(check, 10000);
+// setInterval(check, 2700000);
 check();
 
 app.listen(port, () => {
