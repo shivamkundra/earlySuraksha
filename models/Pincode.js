@@ -26,6 +26,16 @@ const PincodeSchema = new Schema({
     type: Number,
     default: 0,
   },
+  loc: {
+    lat: {
+      type: Number,
+      default: 0,
+    },
+    long: {
+      type: Number,
+      default: 0,
+    },
+  },
 });
 
 const Pincode = mongoose.model("pincode", PincodeSchema);

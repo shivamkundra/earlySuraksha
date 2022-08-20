@@ -109,6 +109,10 @@ const fetchPostCode = async (response) => {
           pincode: data,
           city: res.data.results[0].components.city,
           state: res.data.results[0].components.state,
+          loc: {
+            lat: position.loc.lat,
+            long: position.loc.long,
+          },
         });
       } catch (err) {
         console.log(err);
