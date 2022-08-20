@@ -62,15 +62,15 @@ const checkLightning = async () => {
   //       console.error(error);
   //     });
 
-  // for (const state of states) {
-  //   let res = await axios.get(
-  //     `https://api.aerisapi.com/lightning/closest?p=${state},&format=json&radius=25mi&filter=cg&limit=10&client_id=6wJ8dxYssvfjq6PCcvTNz&client_secret=PWiVGCBdVm5tw5nKAbQYESUGq4zoHnOZiSR6hKZW`
-  //   );
-  //   let { response } = res.data;
-  //   console.log(response);
-  //   Array.prototype.push.apply(lightiningProneArea, response);
-  // Array.prototype.push.apply(lightiningProneArea, [1]);
-  // }
+  for (const state of states) {
+    let res = await axios.get(
+      `https://api.aerisapi.com/lightning/${state}?format=json&filter=cg&limit=10&client_id=ki49YHOrEaZ18gI7FmENw&client_secret=GP4XVcDicca3vWAz0vRQg4n59vFRXhkX8wURgCgR`
+    );
+    let { response } = res.data;
+    console.log(response);
+    Array.prototype.push.apply(lightiningProneArea, response);
+    // Array.prototype.push.apply(lightiningProneArea, [1]);
+  }
   console.log(lightiningProneArea);
   fetchPostCode(lightiningProneArea);
 };
@@ -78,7 +78,7 @@ const checkLightning = async () => {
 const fetchPostCode = async (response) => {
   // postCodes = []; // test purpose
 
-  response = [
+  ownData = [
     {
       loc: {
         lat: 28.6665923,
@@ -86,33 +86,12 @@ const fetchPostCode = async (response) => {
       },
     },
   ];
+
+  Array.prototype.push.apply(response, ownData);
+
   postCodes = [201206];
+
   console.log(response);
-
-  // for (const position of response) {
-  //   axios
-  //     .get(
-  //       `https://api.opencagedata.com/geocode/v1/json?q=${position.loc.lat}+${position.loc.long}&key=713c94f1ac8d447ca086c5ce103fbe81&pretty=1`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     )
-  //     .then(async (response) => {
-  //       const data = response.data.results[0].components.postcode;
-
-  //       if (!postCodes.includes(data) && data !== undefined) {
-  //         postCodes.push(data);
-  //         console.log(postCodes[cnt]);
-  //         findUsers(postCodes);
-  //         cnt++;
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }
 
   for (const position of response) {
     let res = await axios.get(
@@ -173,7 +152,7 @@ const sendEmail = (user) => {
     service: "gmail",
     auth: {
       user: "earlysuraksha@gmail.com", // generated ethereal user
-      pass: "earlysuraksha", // generated ethereal password
+      pass: "ombdmgkzmlrfmlzv", // generated ethereal password
     },
   });
 
@@ -193,6 +172,8 @@ const sendEmail = (user) => {
   });
 };
 const sendSms = (user) => {
+  if (user.phoneNumber == undefined) return;
+
   const accountSid = "AC389ca20125022b31ed4335a9c8da9405";
   const authToken = "f9786658221cf145e896548815507c31";
   const client = require("twilio")(accountSid, authToken);
@@ -201,7 +182,7 @@ const sendSms = (user) => {
   client.messages
     .create({
       body: "This is to inform you that our system has detected severe lightning conditions in your postal region kindly take precautionary steps",
-      from: "+19894184325",
+      from: "+12029157514",
       to: mobileNumber,
     })
     .then((message) => console.log("msgid", message.sid))
