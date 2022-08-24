@@ -42,7 +42,7 @@ const checkLightning = async () => {
 
     for (const state of states) {
       let res = await axios.get(
-        `https://api.aerisapi.com/lightning/${state}?format=json&filter=cg&limit=10&client_id=nVNVi9e0fKBhpkUX43prU&client_secret=vTj6mrZG2Zca8eXx09uI3GWc2aVNkz6E8RfgCP5G`
+        `https://api.aerisapi.com/lightning/${state},in?format=json&filter=cg&limit=10&client_id=376ox9p5y7KYMayVrEkld&client_secret=iLUZEfKKVS5k7PGwrwZVJyMEJvPpCGEEnuI01xts`
       );
       let { response } = res.data;
       console.log(response);
@@ -64,6 +64,18 @@ const fetchPostCode = async (response) => {
         loc: {
           lat: 28.6665923,
           long: 77.2586003,
+        },
+        loc: {
+          lat: 23.1612548,
+          long: 72.6600189,
+        },
+        loc: {
+          lat: 23.1611713,
+          long: 72.6592798,
+        },
+        loc: {
+          lat: 23.1593522,
+          long: 72.6646141,
         },
       },
     ];
