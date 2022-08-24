@@ -34,7 +34,7 @@ router.get("/isDanger", fetchuser, async (req, res) => {
   }
 });
 
-router.get("/getAllDanger", fetchuser, async (req, res) => {
+router.get("/getAllDanger", async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
@@ -51,7 +51,7 @@ router.get("/getAllDanger", fetchuser, async (req, res) => {
     res.status(500).send("some error occured");
   }
 });
-router.post("/deletePin", fetchuser, async (req, res) => {
+router.post("/deletePin", async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
