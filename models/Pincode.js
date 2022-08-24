@@ -36,6 +36,12 @@ const PincodeSchema = new Schema({
       default: 0,
     },
   },
+  messages: [
+    {
+      type: String,
+      default: "",
+    },
+  ],
 });
 
 const Pincode = mongoose.model("pincode", PincodeSchema);
