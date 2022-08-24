@@ -5,139 +5,127 @@ const Pincode = require("../models/Pincode");
 
 const checkLightning = async () => {
   // console.log("checking for lightning");
+  try {
+    states = [
+      "frankfort",
+      "Assam",
+      "Bihar",
+      //   "Chhattisgarh",
+      //   "Goa",
+      //   "Gujarat",
+      //   "Haryana",
+      //   "Himachal Pradesh",
+      //   "Jharkhand",
+      //   "Karnataka",
+      //   "Kerala",
+      //   "Madhya Pradesh",
+      //   "Maharashtra",
+      //   "Manipur",
+      //   "Meghalaya",
+      //   "Mizoram",
+      //   "Odisa",
+      //   "Punjab",
+      //   "Rajasthan",
+      //   "Sikkim",
+      //   "Telangana",
+      //   "Tripura",
+      //   "Uttar Pradesh",
+      //   "West Bengal",
+      //   "Chandigarh",
+      //   "Jammu and Kashmir",
+      //   "Ladakh",
+      //   "Lakshadweep",
+      //   "Puducherry",
+    ];
 
-  states = [
-    "frankfort",
-    "Assam",
-    "Bihar",
-    //   "Chhattisgarh",
-    //   "Goa",
-    //   "Gujarat",
-    //   "Haryana",
-    //   "Himachal Pradesh",
-    //   "Jharkhand",
-    //   "Karnataka",
-    //   "Kerala",
-    //   "Madhya Pradesh",
-    //   "Maharashtra",
-    //   "Manipur",
-    //   "Meghalaya",
-    //   "Mizoram",
-    //   "Odisa",
-    //   "Punjab",
-    //   "Rajasthan",
-    //   "Sikkim",
-    //   "Telangana",
-    //   "Tripura",
-    //   "Uttar Pradesh",
-    //   "West Bengal",
-    //   "Chandigarh",
-    //   "Jammu and Kashmir",
-    //   "Ladakh",
-    //   "Lakshadweep",
-    //   "Puducherry",
-  ];
+    lightiningProneArea = [];
 
-  lightiningProneArea = [];
-
-  // for (const state of states) {
-  //   // console.log(state);
-  //   axios
-  //     .get(
-  //       `https://api.aerisapi.com/lightning/closest?p=${state},&format=json&radius=25mi&filter=cg&limit=10&client_id=6wJ8dxYssvfjq6PCcvTNz&client_secret=PWiVGCBdVm5tw5nKAbQYESUGq4zoHnOZiSR6hKZW`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       const data = response.data.response;
-  //       Array.prototype.push.apply(lightiningProneArea, data);
-  //       // console.log(state, response.data.success, data);
-  //       console.log("lpa", lightiningProneArea);
-  //       fetchPostCode(lightiningProneArea);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-
-  for (const state of states) {
-    let res = await axios.get(
-      `https://api.aerisapi.com/lightning/${state}?format=json&filter=cg&limit=10&client_id=ki49YHOrEaZ18gI7FmENw&client_secret=GP4XVcDicca3vWAz0vRQg4n59vFRXhkX8wURgCgR`
-    );
-    let { response } = res.data;
-    console.log(response);
-    Array.prototype.push.apply(lightiningProneArea, response);
-    // Array.prototype.push.apply(lightiningProneArea, [1]);
+    for (const state of states) {
+      let res = await axios.get(
+        `https://api.aerisapi.com/lightning/${state}?format=json&filter=cg&limit=10&client_id=nVNVi9e0fKBhpkUX43prU&client_secret=vTj6mrZG2Zca8eXx09uI3GWc2aVNkz6E8RfgCP5G`
+      );
+      let { response } = res.data;
+      console.log(response);
+      Array.prototype.push.apply(lightiningProneArea, response);
+      // Array.prototype.push.apply(lightiningProneArea, [1]);
+    }
+    console.log(lightiningProneArea);
+    fetchPostCode(lightiningProneArea);
+  } catch (err) {
+    console.log(err);
   }
-  console.log(lightiningProneArea);
-  fetchPostCode(lightiningProneArea);
 };
 
 const fetchPostCode = async (response) => {
   // postCodes = []; // test purpose
-
-  ownData = [
-    {
-      loc: {
-        lat: 28.6665923,
-        long: 77.2586003,
+  try {
+    ownData = [
+      {
+        loc: {
+          lat: 28.6665923,
+          long: 77.2586003,
+        },
       },
-    },
-  ];
+    ];
 
-  Array.prototype.push.apply(response, ownData);
+    Array.prototype.push.apply(response, ownData);
 
-  postCodes = [201206];
+    postCodes = [201206];
 
-  console.log(response);
+    console.log(response);
 
-  for (const position of response) {
-    let res = await axios.get(
-      `https://api.opencagedata.com/geocode/v1/json?q=${position.loc.lat}+${position.loc.long}&key=713c94f1ac8d447ca086c5ce103fbe81&pretty=1`
-    );
-    const data = res.data.results[0].components.postcode;
+    for (const position of response) {
+      let res = await axios.get(
+        `https://api.opencagedata.com/geocode/v1/json?q=${position.loc.lat}+${position.loc.long}&key=713c94f1ac8d447ca086c5ce103fbe81&pretty=1`
+      );
+      const data = res.data.results[0].components.postcode;
 
-    const pincodeInDb = await Pincode.findOne({ pincode: data });
-    // console.log(pincodeInDb);
-    if (pincodeInDb == null) {
-      //not added in database
-      // new case found
-      try {
-        await Pincode.create({
-          pincode: data,
-          city: res.data.results[0].components.city,
-          state: res.data.results[0].components.state,
-          loc: {
-            lat: position.loc.lat,
-            long: position.loc.long,
-          },
-        });
-      } catch (err) {
-        console.log(err);
+      const pincodeInDb = await Pincode.findOne({ pincode: data });
+      // console.log(pincodeInDb);
+      if (pincodeInDb == null) {
+        //not added in database
+        // new case found
+        try {
+          await Pincode.create({
+            pincode: data,
+            city: res.data.results[0].components.city,
+            state: res.data.results[0].components.state,
+            loc: {
+              lat: position.loc.lat,
+              long: position.loc.long,
+            },
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+      if (!postCodes.includes(data) && data !== undefined) {
+        postCodes.push(data);
       }
     }
 
-    if (!postCodes.includes(data) && data !== undefined) {
-      postCodes.push(data);
-    }
+    console.log(postCodes);
+
+    findUsers(postCodes);
+  } catch (err) {
+    console.log(err);
   }
-
-  console.log(postCodes);
-
-  findUsers(postCodes);
 };
 
 const findUsers = async (postCodes) => {
-  for (const postcode of postCodes) {
-    // fetch user with this particular postcode and send them message
+  try {
+    for (const postcode of postCodes) {
+      // fetch user with this particular postcode and send them message
 
-    const Users = await User.find({ pincode: postcode }); // all users with the pincodes under danger
+      const Users = await User.find({ pincode: postcode }); // all users with the pincodes under danger
 
-    for (const user of Users) {
-      alertUser(user); // alerting every user under danger
+      for (const user of Users) {
+        alertUser(user); // alerting every user under danger
+      }
     }
+  } catch (err) {
+    console.log(err);
   }
 };
 

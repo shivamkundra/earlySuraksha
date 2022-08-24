@@ -51,5 +51,24 @@ router.get("/getAllDanger", fetchuser, async (req, res) => {
     res.status(500).send("some error occured");
   }
 });
+router.post("/deletePin", fetchuser, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
+  }
+
+  try {
+    const pincode = req.body.pin;
+
+    const delpin = await Pincode.findOneAndDelete({ pincode: pincode });
+
+    res.json({
+      data: delpin,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("some error occured");
+  }
+});
 
 module.exports = router;
