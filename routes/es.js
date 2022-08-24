@@ -129,4 +129,47 @@ router.post("/MessagesFromUsers", async (req, res) => {
   }
 });
 
+router.post("/MessagesToUsers", async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
+  }
+
+  try {
+    users = await User.find({ pincode: req.body.pin });
+
+    console.log(users + "userrrrrrrrrr");
+    for (user of users) {
+      sendSms(user, req.body.msg);
+    }
+
+    res.json({
+      messages: "msg sent to users",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("some error occured");
+  }
+});
+const sendSms = (user, msg) => {
+  if (user.phoneNumber == undefined) return;
+
+  const accountSid = "AC389ca20125022b31ed4335a9c8da9405";
+  const authToken = "f9786658221cf145e896548815507c31";
+  const client = require("twilio")(accountSid, authToken);
+  const mobileNumber = "+91" + user.phoneNumber;
+  console.log(mobileNumber);
+  client.messages
+    .create({
+      body: `Message from NDRF ${msg}`,
+      from: "+12029157514",
+      to: mobileNumber,
+    })
+    .then((message) => console.log("msgid", message.sid))
+    .catch((err) => {
+      console.log("err", err);
+    })
+    .done();
+};
+
 module.exports = router;

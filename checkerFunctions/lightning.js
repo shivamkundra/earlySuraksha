@@ -195,5 +195,5 @@ const sendSms = (user) => {
     })
     .done();
 };
-const sendNotification = (user) => {};
+
 module.exports = checkLightning;
