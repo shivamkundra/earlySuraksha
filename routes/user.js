@@ -192,11 +192,18 @@ router.post("/dearOnes", fetchuser, async (req, res) => {
     console.log(userid);
     const user = await User.findById(userid).select("-password");
 
+    let dearones = user.dearones;
+    if (dearones == null) {
+      dearones = req.body.dearones;
+    } else {
+      dearones = dearones.concat(req.body.dearones);
+    }
+
     await User.updateOne(
       { _id: userid },
       {
         $set: {
-          dearones: req.body.dearones,
+          dearones: dearones,
         },
       }
     );
@@ -210,5 +217,53 @@ router.post("/dearOnes", fetchuser, async (req, res) => {
     res.status(500).send("some error occured");
   }
 });
+
+router.post("/sendDearOnes", fetchuser, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
+  }
+
+  try {
+    const userid = req.id;
+    console.log(userid);
+    const user = await User.findById(userid).select("-password");
+
+    const dearones = user.dearones;
+
+    for (const dearone of dearones) {
+      sendSms(dearone); //phone number of the dear one
+    }
+
+    res.json({
+      msg: "dear ones are alerted",
+    });
+    // res.send("okok");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("some error occured");
+  }
+});
+
+const sendSms = (phonenumber) => {
+  if (phonenumber == undefined) return;
+
+  const accountSid = "AC5b21300807fd268f1c96c14b60ba4405";
+  const authToken = "1c078e477da5245e8250a4808ad9e452";
+  const client = require("twilio")(accountSid, authToken);
+  const mobileNumber = `+91${phonenumber}`;
+  console.log(mobileNumber);
+  client.messages
+    .create({
+      body: "This is to inform you that our system has detected severe lightning conditions in your postal region kindly take precautionary steps",
+      from: "+13027860883",
+      to: mobileNumber,
+    })
+    .then((message) => console.log("msgid", message.sid))
+    .catch((err) => {
+      console.log("err", err);
+    })
+    .done();
+};
 
 module.exports = router;
