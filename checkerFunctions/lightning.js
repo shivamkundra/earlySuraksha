@@ -42,7 +42,7 @@ const checkLightning = async () => {
 
     for (const state of states) {
       let res = await axios.get(
-        `https://api.aerisapi.com/lightning/${state},in?format=json&filter=cg&limit=10&client_id=376ox9p5y7KYMayVrEkld&client_secret=iLUZEfKKVS5k7PGwrwZVJyMEJvPpCGEEnuI01xts`
+        `https://api.aerisapi.com/lightning/${state},in?format=json&filter=cg&limit=10&client_id=CClUu88CWDCe9toMdHj7s&client_secret=wyeCNAp9KZotcy7UKYeOP6i4DZYSoo57WGkTSvsa`
       );
       let { response } = res.data;
       console.log(response);
