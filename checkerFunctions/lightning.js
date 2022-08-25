@@ -148,7 +148,6 @@ const alertUser = (user) => {
 
   sendSms(user);
   sendEmail(user);
-  sendNotification(user);
 };
 
 const sendEmail = (user) => {
