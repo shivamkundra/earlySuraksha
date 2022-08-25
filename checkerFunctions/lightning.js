@@ -59,20 +59,26 @@ const checkLightning = async () => {
 const fetchPostCode = async (response) => {
   // postCodes = []; // test purpose
   try {
-    ownData = [
+    const ownData = [
       {
         loc: {
           lat: 28.6665923,
           long: 77.2586003,
         },
+      },
+      {
         loc: {
           lat: 23.1612548,
           long: 72.6600189,
         },
+      },
+      {
         loc: {
           lat: 23.1611713,
           long: 72.6592798,
         },
+      },
+      {
         loc: {
           lat: 23.1593522,
           long: 72.6646141,
@@ -80,9 +86,9 @@ const fetchPostCode = async (response) => {
       },
     ];
 
-    Array.prototype.push.apply(response, ownData);
+    response = response.concat(ownData);
 
-    postCodes = [201206];
+    postCodes = ["201206"];
 
     console.log(response);
 

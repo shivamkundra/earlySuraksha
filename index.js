@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 setInterval(check, 900000);
-// check();
+check();
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
