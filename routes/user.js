@@ -181,4 +181,34 @@ router.post("/setLocation", fetchuser, async (req, res) => {
   }
 });
 
+router.post("/dearOnes", fetchuser, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
+  }
+
+  try {
+    const userid = req.id;
+    console.log(userid);
+    const user = await User.findById(userid).select("-password");
+
+    await User.updateOne(
+      { _id: userid },
+      {
+        $set: {
+          dearones: req.body.dearones,
+        },
+      }
+    );
+
+    res.json({
+      msg: "added",
+    });
+    // res.send("okok");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("some error occured");
+  }
+});
+
 module.exports = router;

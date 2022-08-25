@@ -31,6 +31,12 @@ const UserSchema = new Schema({
     type: String,
     default: "",
   },
+  dearones: [
+    {
+      type: String,
+      default: "",
+    },
+  ],
 });
 
 const User = mongoose.model("user", UserSchema);
