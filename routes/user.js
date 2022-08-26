@@ -218,7 +218,7 @@ router.post("/dearOnes", fetchuser, async (req, res) => {
   }
 });
 
-router.post("/sendDearOnes", fetchuser, async (req, res) => {
+router.get("/sendDearOnes", fetchuser, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent

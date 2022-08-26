@@ -42,6 +42,14 @@ const PincodeSchema = new Schema({
       default: "",
     },
   ],
+  policeStation: {
+    type: Boolean,
+    default: false,
+  },
+  medical: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Pincode = mongoose.model("pincode", PincodeSchema);
