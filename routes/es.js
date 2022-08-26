@@ -232,7 +232,7 @@ router.get("/alertedHospitals", async (req, res) => {
     hospitals = await Pincode.find({ medical: true });
 
     res.json({
-      hospitals,
+      data: hospitals,
     });
   } catch (error) {
     console.log(error);
