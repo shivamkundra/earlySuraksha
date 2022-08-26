@@ -172,4 +172,54 @@ const sendSms = (user, msg) => {
     .done();
 };
 
+router.post("/alertPolice", async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
+  }
+
+  try {
+    await Pincode.updateOne(
+      { pincode: req.body.pin },
+      {
+        $set: {
+          policeStation: true,
+        },
+      }
+    );
+
+    res.json({
+      msg: "police alerted",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("some error occured");
+  }
+});
+
+router.post("/alertMedical", async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
+  }
+
+  try {
+    await Pincode.updateOne(
+      { pincode: req.body.pin },
+      {
+        $set: {
+          medical: true,
+        },
+      }
+    );
+
+    res.json({
+      msg: "medical staff alerted",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("some error occured");
+  }
+});
+
 module.exports = router;
