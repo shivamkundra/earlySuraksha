@@ -240,17 +240,17 @@ router.get("/alertedHospitals", async (req, res) => {
   }
 });
 
-router.get("/alertedHospitals", async (req, res) => {
+router.get("/alertedPolice", async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
   }
 
   try {
-    hospitals = await Pincode.find({ medical: true });
+    police = await Pincode.find({ policeStation: true });
 
     res.json({
-      hospitals,
+      data: police,
     });
   } catch (error) {
     console.log(error);
