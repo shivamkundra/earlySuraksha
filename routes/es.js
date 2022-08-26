@@ -222,4 +222,40 @@ router.post("/alertMedical", async (req, res) => {
   }
 });
 
+router.get("/alertedHospitals", async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
+  }
+
+  try {
+    hospitals = await Pincode.find({ medical: true });
+
+    res.json({
+      hospitals,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("some error occured");
+  }
+});
+
+router.get("/alertedHospitals", async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() }); //if the values are not entered as per the rules the error will be sent
+  }
+
+  try {
+    hospitals = await Pincode.find({ medical: true });
+
+    res.json({
+      hospitals,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("some error occured");
+  }
+});
+
 module.exports = router;
