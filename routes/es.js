@@ -19,12 +19,30 @@ router.get("/isDanger", fetchuser, async (req, res) => {
     console.log(userid);
     const user = await User.findById(userid).select("-password");
     const pincodeInDb = await Pincode.findOne({ pincode: user.pincode });
+    console.log("|");
+    console.log("|");
+    console.log("|");
+    console.log("|");
+    console.log("|");
+
+    console.log("lat : " + pincodeInDb.loc.lat);
+    console.log("long : " + pincodeInDb.loc.long);
     if (pincodeInDb) {
       // present in out database
+      console.log("Danger ---> " + true);
+      console.log("SMS sent");
+      console.log("User Notified");
+
+      console.log("|");
+      console.log("|");
+      console.log("|");
+      console.log("|");
+      console.log("|");
       return res.json({
         msg: true,
       });
     }
+
     res.json({
       msg: false,
     });
