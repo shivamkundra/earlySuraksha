@@ -154,6 +154,7 @@ const alertUser = (user) => {
 
   sendSms(user);
   sendEmail(user);
+  console.log("smoke : ACTIVATED");
 };
 
 const sendEmail = (user) => {
