@@ -19,15 +19,16 @@ router.get("/isDanger", fetchuser, async (req, res) => {
     console.log(userid);
     const user = await User.findById(userid).select("-password");
     const pincodeInDb = await Pincode.findOne({ pincode: user.pincode });
+    // console.log(pincodeInDb);
     console.log("|");
     console.log("|");
     console.log("|");
     console.log("|");
     console.log("|");
 
-    console.log("lat : " + pincodeInDb.loc.lat);
-    console.log("long : " + pincodeInDb.loc.long);
     if (pincodeInDb) {
+      console.log("lat : " + pincodeInDb.loc.lat);
+      console.log("long : " + pincodeInDb.loc.long);
       // present in out database
       console.log("Danger ---> " + true);
       console.log("SMS sent");
@@ -172,15 +173,15 @@ router.post("/MessagesToUsers", async (req, res) => {
 const sendSms = (user, msg) => {
   if (user.phoneNumber == undefined) return;
 
-  const accountSid = "AC8619ae3a399eb4c088b0cb6d0baed0cf";
-  const authToken = "c261a1b1bd8eb4d60a0118a1d763fb01";
+  const accountSid = "AC5e735e124400e328513563a76dda225b";
+  const authToken = "35d46f14517c4d20bba9979f629ab30d";
   const client = require("twilio")(accountSid, authToken);
   const mobileNumber = "+91" + user.phoneNumber;
   console.log(mobileNumber);
   client.messages
     .create({
       body: `Message from NDRF ${msg}`,
-      from: "+14244597566",
+      from: "+18159575597",
       to: mobileNumber,
     })
     .then((message) => console.log("msgid", message.sid))
