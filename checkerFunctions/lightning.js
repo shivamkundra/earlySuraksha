@@ -184,15 +184,15 @@ const sendEmail = (user) => {
 const sendSms = (user) => {
   if (user.phoneNumber == undefined) return;
 
-  const accountSid = "AC5e735e124400e328513563a76dda225b";
-  const authToken = "35d46f14517c4d20bba9979f629ab30d";
+  const accountSid = "SKa0dd6b777effd31209c30877d90e36ef";
+  const authToken = "DQgd4BazRARChvS2HnjAVBZjuef6j7HN";
   const client = require("twilio")(accountSid, authToken);
   const mobileNumber = "+91" + user.phoneNumber;
   console.log(mobileNumber);
   client.messages
     .create({
       body: "This is to inform you that our system has detected severe lightning conditions in your postal region kindly take precautionary steps",
-      from: "+18159575597",
+      from: "+12028313630",
       to: mobileNumber,
     })
     .then((message) => console.log("msgid", message.sid))
