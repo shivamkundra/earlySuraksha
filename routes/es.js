@@ -173,15 +173,15 @@ router.post("/MessagesToUsers", async (req, res) => {
 const sendSms = (user, msg) => {
   if (user.phoneNumber == undefined) return;
 
-  const accountSid = "AC5e735e124400e328513563a76dda225b";
-  const authToken = "35d46f14517c4d20bba9979f629ab30d";
+  const accountSid = "AC35eef999d62b0716a45a001114c81252";
+  const authToken = "73cde0d2497063ffe5ca010574960563";
   const client = require("twilio")(accountSid, authToken);
   const mobileNumber = "+91" + user.phoneNumber;
   console.log(mobileNumber);
   client.messages
     .create({
       body: `Message from NDRF ${msg}`,
-      from: "+18159575597",
+      from: "+12028313630",
       to: mobileNumber,
     })
     .then((message) => console.log("msgid", message.sid))

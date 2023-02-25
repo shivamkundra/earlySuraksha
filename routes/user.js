@@ -248,15 +248,15 @@ router.get("/sendDearOnes", fetchuser, async (req, res) => {
 const sendSms = (phonenumber) => {
   if (phonenumber == undefined) return;
 
-  const accountSid = "AC8619ae3a399eb4c088b0cb6d0baed0cf";
-  const authToken = "c261a1b1bd8eb4d60a0118a1d763fb01";
+  const accountSid = "AC35eef999d62b0716a45a001114c81252";
+  const authToken = "73cde0d2497063ffe5ca010574960563";
   const client = require("twilio")(accountSid, authToken);
   const mobileNumber = `+91${phonenumber}`;
   console.log(mobileNumber);
   client.messages
     .create({
       body: "This is to inform you that our system has detected severe lightning conditions in your postal region kindly take precautionary steps",
-      from: "+14244597566",
+      from: "+12028313630",
       to: mobileNumber,
     })
     .then((message) => console.log("msgid", message.sid))
