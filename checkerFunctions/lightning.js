@@ -4,7 +4,7 @@ const Nodemailer = require("nodemailer");
 const Pincode = require("../models/Pincode");
 
 const checkLightning = async () => {
-  // console.log("checking for lightning");
+  console.log("checking for lightning");
   try {
     states = [
       "frankfort",
