@@ -40,16 +40,16 @@ const checkLightning = async () => {
 
     lightiningProneArea = [];
 
-    for (const state of states) {
-      let res = await axios.get(
-        `https://api.aerisapi.com/lightning/${state},in?format=json&filter=cg&limit=10&client_id=Yo7yrZD0VM43e7Vf3CR2I&client_secret=E7hF7B34mNnFpF6yYviy0q39n8YpBestpzaMiYQS`
-      );
-      let { response } = res.data;
-      console.log(response);
-      Array.prototype.push.apply(lightiningProneArea, response);
-      // Array.prototype.push.apply(lightiningProneArea, [1]);
-    }
-    console.log(lightiningProneArea);
+    // for (const state of states) {
+    //   let res = await axios.get(
+    //     `https://api.aerisapi.com/lightning/${state},in?format=json&filter=cg&limit=10&client_id=Yo7yrZD0VM43e7Vf3CR2I&client_secret=E7hF7B34mNnFpF6yYviy0q39n8YpBestpzaMiYQS`
+    //   );
+    //   let { response } = res.data;
+    //   console.log(response);
+    //   Array.prototype.push.apply(lightiningProneArea, response);
+    //   // Array.prototype.push.apply(lightiningProneArea, [1]);
+    // }
+    console.log("prone areaaa------->>>>" + lightiningProneArea);
     fetchPostCode(lightiningProneArea);
   } catch (err) {
     console.log(err);
@@ -184,8 +184,8 @@ const sendEmail = (user) => {
 const sendSms = (user) => {
   if (user.phoneNumber == undefined) return;
 
-  const accountSid = "SKa0dd6b777effd31209c30877d90e36ef";
-  const authToken = "DQgd4BazRARChvS2HnjAVBZjuef6j7HN";
+  const accountSid = "AC35eef999d62b0716a45a001114c81252";
+  const authToken = "92afb00704c69e3b499bde4b13c1d656";
   const client = require("twilio")(accountSid, authToken);
   const mobileNumber = "+91" + user.phoneNumber;
   console.log(mobileNumber);

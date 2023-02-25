@@ -249,7 +249,7 @@ const sendSms = (phonenumber) => {
   if (phonenumber == undefined) return;
 
   const accountSid = "AC35eef999d62b0716a45a001114c81252";
-  const authToken = "73cde0d2497063ffe5ca010574960563";
+  const authToken = "92afb00704c69e3b499bde4b13c1d656";
   const client = require("twilio")(accountSid, authToken);
   const mobileNumber = `+91${phonenumber}`;
   console.log(mobileNumber);
