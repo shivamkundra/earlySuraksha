@@ -88,7 +88,7 @@ const fetchPostCode = async (response) => {
 
     response = response.concat(ownData);
 
-    postCodes = ["121010", "144001"];
+    postCodes = ["144001"];
 
     console.log(response);
 
