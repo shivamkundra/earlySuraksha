@@ -153,7 +153,7 @@ const alertUser = (user) => {
   // notification
 
   sendSms(user);
-  sendEmail(user);
+  // sendEmail(user);
   console.log("smoke : ACTIVATED");
 };
 
@@ -184,15 +184,15 @@ const sendEmail = (user) => {
 const sendSms = (user) => {
   if (user.phoneNumber == undefined) return;
 
-  const accountSid = "AC35eef999d62b0716a45a001114c81252";
-  const authToken = "92afb00704c69e3b499bde4b13c1d656";
+  const accountSid = "AC584ccd3cfd83cd6e36106a5b04f21025";
+  const authToken = "15659cdf8511c933f6356d0356ae41eb";
   const client = require("twilio")(accountSid, authToken);
   const mobileNumber = "+91" + user.phoneNumber;
   console.log(mobileNumber);
   client.messages
     .create({
       body: "This is to inform you that our system has detected severe lightning conditions in your postal region kindly take precautionary steps",
-      from: "+12028313630",
+      from: "+16813213049",
       to: mobileNumber,
     })
     .then((message) => console.log("msgid", message.sid))
